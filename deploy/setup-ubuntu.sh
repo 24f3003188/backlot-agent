@@ -34,7 +34,8 @@ id backlot >/dev/null 2>&1 || useradd --system --create-home --shell /usr/sbin/n
 if [ ! -d /opt/backlot/.git ]; then
   git clone "$REPO_URL" /opt/backlot
 else
-  git -C /opt/backlot pull --ff-only
+  # The repo belongs to the app user after the first run; pull as that user
+  sudo -u backlot git -C /opt/backlot pull --ff-only
 fi
 mkdir -p /opt/backlot/backend/preset-cache
 
