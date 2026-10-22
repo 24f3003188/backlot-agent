@@ -1,5 +1,9 @@
 # Backlot
 
+<p align="center">
+  <img src="docs/media/landing.gif" alt="Backlot landing page: intro transition, hero, With vs Without Qloo comparison and example worlds" width="720">
+</p>
+
 Backlot is a Qloo-powered agent that turns what people in a place actually love into evidence-linked, engine-ready game world content.
 
 Give it a one-line brief such as "A 1990s Lagos detective adventure". An agent queries Qloo's Taste AI for the music, venues, brands, TV and games associated with that place, compares it against a similar city to find what is distinctive, and then writes quests, radio stations, storefronts, NPC profiles and districts. Every generated item links back to the Qloo entities that inspired it, and the whole pack exports to Unity, Godot, JSON and a Markdown style bible.
