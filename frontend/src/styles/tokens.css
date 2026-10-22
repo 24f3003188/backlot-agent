@@ -1,0 +1,97 @@
+/* ─────────────────────────────────────────────
+   OFF+BRAND. Design System — CSS Custom Properties
+   Strictly per design.md
+────────────────────────────────────────────── */
+:root {
+  /* ── Colors (Dark Grey Theme per reference) ─── */
+  --color-canvas: #141414;
+  --color-canvas-elevated: #1a1a1a;
+  --color-parchment: #141414;
+  --color-ink: #e6e6e2;
+  --color-paper: #1c1c1c;
+  --color-ash: #404040;
+  --color-stone: #262626;
+  --color-muted: #8a8a86;
+  --color-accent-border: rgba(255, 255, 255, 0.18);
+  --color-pill-bg: rgba(255, 255, 255, 0.05);
+  --color-pill-hover: rgba(255, 255, 255, 0.12);
+
+  --gradient-iridescent-sphere: radial-gradient(
+    circle at 35% 35%,
+    #ffffff 0%,
+    #ffeaa7 15%,
+    #ff7675 38%,
+    #fd79a8 55%,
+    #74b9ff 75%,
+    #a29bfe 100%
+  );
+
+  /* ── Typography ──────────────────────────── */
+  --font-display: 'Syne', sans-serif;
+  --font-primary: 'Space Grotesk', sans-serif;
+
+  /* Type scale */
+  --text-caption: 11px;
+  --leading-caption: 1.4;
+  --tracking-caption: 0.55px;
+
+  --text-body-sm: 15px;
+  --leading-body-sm: 1.4;
+  --tracking-body-sm: 0.15px;
+
+  --text-body: 18px;
+  --leading-body: 1.4;
+  --tracking-body: 0.23px;
+
+  --text-subheading: 34px;
+  --leading-subheading: 1;
+  --tracking-subheading: 0.44px;
+
+  --text-heading-sm: 46px;
+  --leading-heading-sm: 1;
+  --tracking-heading-sm: 0.6px;
+
+  --text-heading: 70px;
+  --leading-heading: 0.8;
+  --tracking-heading: 0.91px;
+
+  --text-heading-lg: 76px;
+  --leading-heading-lg: 0.8;
+  --tracking-heading-lg: 0.99px;
+
+  --text-display: 103px;
+  --leading-display: 0.8;
+  --tracking-display: 1.34px;
+
+  /* Font weights */
+  --font-weight-regular: 400;
+  --font-weight-bold: 700;
+
+  /* ── Spacing ─────────────────────────────── */
+  --spacing-5: 5px;
+  --spacing-6: 6px;
+  --spacing-8: 8px;
+  --spacing-15: 15px;
+  --spacing-19: 19px;
+  --spacing-30: 30px;
+  --spacing-32: 32px;
+  --spacing-46: 46px;
+  --spacing-76: 76px;
+  --spacing-119: 119px;
+
+  /* ── Border Radius ───────────────────────── */
+  --radius-cards: 0px;
+  --radius-links: 10px;
+  --radius-inputs: 10px;
+  --radius-buttons: 10px;
+
+  /* ── Layout ──────────────────────────────── */
+  --page-max-width: 1400px;
+  --card-padding: 30px;
+  --element-gap: 19px;
+
+  /* ── Surfaces ────────────────────────────── */
+  --surface-canvas: #141414;
+  --surface-paper: #1c1c1c;
+  --surface-stone: #262626;
+}

@@ -1,0 +1,21 @@
+# Dependencies and builds
+node_modules/
+dist/
+*.tsbuildinfo
+
+# Secrets: never commit real keys
+.env
+.env.*
+!.env.example
+api-key-details
+
+# Local-only notes, backups and scratch work
+_local/
+scratch/
+
+# Logs and OS files
+*.log
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

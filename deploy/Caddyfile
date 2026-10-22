@@ -1,0 +1,9 @@
+# Replace with your domain, or use <elastic-ip-with-dashes>.sslip.io for a free hostname.
+# Caddy obtains and renews the HTTPS certificate automatically.
+{$BACKLOT_DOMAIN} {
+	encode zstd gzip
+	reverse_proxy 127.0.0.1:3001 {
+		# Server-Sent Events: stream immediately, never buffer
+		flush_interval -1
+	}
+}
