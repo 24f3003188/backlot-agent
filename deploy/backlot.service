@@ -10,7 +10,8 @@ WorkingDirectory=/opt/backlot/backend
 EnvironmentFile=/opt/backlot/backend/.env
 Environment=NODE_ENV=production
 Environment=PORT=3001
-ExecStart=/usr/bin/npm start
+# Set here as well: values in EnvironmentFile override Environment= lines above
+ExecStart=/usr/bin/env NODE_ENV=production PORT=3001 /usr/bin/npm start
 Restart=always
 RestartSec=3
 # Hardening

@@ -8,8 +8,8 @@ Backlot is a Qloo-powered agent that turns what people in a place actually love 
 
 Give it a one-line brief such as "A 1990s Lagos detective adventure". An agent queries Qloo's Taste AI for the music, venues, brands, TV and games associated with that place, compares it against a similar city to find what is distinctive, and then writes quests, radio stations, storefronts, NPC profiles and districts. Every generated item links back to the Qloo entities that inspired it, and the whole pack exports to Unity, Godot, JSON and a Markdown style bible.
 
-- Live demo: `<add URL after deployment>`
-- Demo video: `<add link>`
+- Live demo: https://54-79-70-129.sslip.io
+- Demo video: https://youtu.be/rfU25m1pQGI
 - Built for the Qloo Agentic AI Hackathon 2026
 
 ---
