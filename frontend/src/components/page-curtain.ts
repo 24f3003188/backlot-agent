@@ -13,12 +13,21 @@ const STAGGER_MS = 42;
 
 const PAGES: Array<{ path: string; label: string }> = [
   { path: '/', label: 'Home' },
+  { path: '/how-it-works', label: 'Process' },
   { path: '/chat', label: 'Studio' },
   { path: '/about', label: 'About' },
   { path: '/credits', label: 'Credits' },
 ];
 
 let root: HTMLElement | null = null;
+
+/** After a page swap: jump to the URL's #section if it exists, otherwise to the top. */
+export function landAtTarget() {
+  const hash = window.location.hash;
+  const target = hash.length > 1 ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
+  if (target) target.scrollIntoView({ block: 'start' });
+  else window.scrollTo(0, 0);
+}
 
 function el(): HTMLElement {
   if (root) return root;
@@ -124,7 +133,7 @@ export async function curtainTransition(render: () => Promise<void> | void, app:
   ]);
 
   // Swap the page while fully covered, then lift once the label has landed
-  await Promise.all([Promise.resolve(render()).then(() => window.scrollTo(0, 0)), done(label)]);
+  await Promise.all([Promise.resolve(render()).then(landAtTarget), done(label)]);
   await wait(60);
   await reveal(c, app);
 

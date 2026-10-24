@@ -35,7 +35,7 @@ export function initNavDrawer() {
         <a href="/chat" data-spa class="drawer-link shuffle-btn" data-shuffle-text="AGENT STUDIO →">
           AGENT STUDIO →
         </a>
-        <a href="#how" class="drawer-link shuffle-btn" data-shuffle-text="HOW IT WORKS →">
+        <a href="/how-it-works" data-spa class="drawer-link shuffle-btn" data-shuffle-text="HOW IT WORKS →">
           HOW IT WORKS →
         </a>
         <a href="/about" data-spa class="drawer-link shuffle-btn" data-shuffle-text="ABOUT & LICENSE →">
@@ -47,7 +47,7 @@ export function initNavDrawer() {
         <a href="https://docs.qloo.com" target="_blank" class="drawer-link shuffle-btn" data-shuffle-text="QLOO API ↗">
           QLOO API ↗
         </a>
-        <a href="#worlds" class="drawer-link shuffle-btn" data-shuffle-text="EXAMPLE WORLDS →">
+        <a href="/#worlds" data-spa class="drawer-link shuffle-btn" data-shuffle-text="EXAMPLE WORLDS →">
           EXAMPLE WORLDS →
         </a>
       </nav>
@@ -56,7 +56,7 @@ export function initNavDrawer() {
       <div class="drawer-bottom">
         <!-- Sub-links -->
         <div class="drawer-sublinks">
-          <a href="#faq" class="drawer-sublink">FAQ <span class="arrow">→</span></a>
+          <a href="/#faq" data-spa class="drawer-sublink">FAQ <span class="arrow">→</span></a>
           <a href="/credits" data-spa class="drawer-sublink">CREDITS <span class="arrow">→</span></a>
         </div>
 

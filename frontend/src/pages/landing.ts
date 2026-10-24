@@ -33,7 +33,7 @@ export function renderLanding(container: HTMLElement) {
     <nav class="nav" id="main-nav">
       <a href="/" data-spa class="nav-logo">BACKLOT.</a>
       <div class="nav-links">
-        <a href="#how" class="shuffle-btn nav-hide-sm" data-shuffle-text="HOW IT WORKS ↗">HOW IT WORKS ↗</a>
+        <a href="/how-it-works" data-spa class="shuffle-btn nav-hide-sm" data-shuffle-text="HOW IT WORKS →">HOW IT WORKS →</a>
         <a href="/chat" data-spa class="shuffle-btn" data-shuffle-text="AGENT STUDIO →">AGENT STUDIO →</a>
         <button class="hero-menu-btn" id="nav-menu-btn" aria-label="Open Navigation Menu">
           <span></span>
@@ -107,6 +107,9 @@ export function renderLanding(container: HTMLElement) {
             <p class="body-sm" style="line-height: 1.6;">${s.desc}</p>
           </div>
         `).join('')}
+      </div>
+      <div style="margin-top: 28px;">
+        <a href="/how-it-works" data-spa class="shuffle-btn" data-shuffle-text="SEE THE FULL PROCESS →">SEE THE FULL PROCESS →</a>
       </div>
     </section>
 
@@ -328,7 +331,7 @@ export function renderLanding(container: HTMLElement) {
           <div style="display: flex; flex-direction: column; gap: 8px;">
             <a href="/" data-spa class="footer-link">Home <span class="link-arrow">→</span></a>
             <a href="/chat" data-spa class="footer-link">Agent Studio <span class="link-arrow">→</span></a>
-            <a href="#how" class="footer-link">How It Works <span class="link-arrow">→</span></a>
+            <a href="/how-it-works" data-spa class="footer-link">How It Works <span class="link-arrow">→</span></a>
             <a href="#qloo" class="footer-link">Why Qloo <span class="link-arrow">→</span></a>
           </div>
         </div>
@@ -505,7 +508,10 @@ function attachLandingListeners(container: HTMLElement) {
     mediaItems.forEach(v => v.pause());
     cardVideos.forEach(v => v.pause());
   }
-  window.addEventListener('popstate', teardown, { once: true });
+  // Leaving the page tears down media; a #section change on this page does not
+  const onPop = () => { if (window.location.pathname !== '/') teardown(); };
+  window.addEventListener('popstate', onPop);
+  cleanups.push(() => window.removeEventListener('popstate', onPop));
 
   // Featured cards open the studio and run that preset
   container.querySelectorAll<HTMLElement>('[data-preset]').forEach(card => {

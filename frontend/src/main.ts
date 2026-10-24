@@ -1,7 +1,8 @@
 import { renderLanding } from './pages/landing.js';
 import { renderCredits } from './pages/credits.js';
 import { renderAbout } from './pages/about.js';
-import { curtainTransition, curtainIntro } from './components/page-curtain.js';
+import { renderHowItWorks } from './pages/how-it-works.js';
+import { curtainTransition, curtainIntro, landAtTarget } from './components/page-curtain.js';
 
 const app = document.getElementById('app')!;
 
@@ -16,6 +17,9 @@ function route(): Promise<void> | void {
     }
     // Studio (and React/motion for the thinking line) loads only when opened
     return import('./pages/chat.js').then(m => m.renderChat(app));
+  } else if (path === '/how-it-works' || path === '/how') {
+    if (path === '/how') history.replaceState({}, '', '/how-it-works');
+    renderHowItWorks(app);
   } else if (path === '/credits') {
     renderCredits(app);
   } else if (path === '/about' || path === '/license') {
@@ -35,34 +39,66 @@ function route(): Promise<void> | void {
 
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-/** Page change with the cinematic curtain (plain swap for reduced motion). */
+// The page currently on screen. Only a change of path (or query) is a page change;
+// a change of #hash alone stays on the same page and never plays the curtain.
+let shownPath = location.pathname;
+let shownQuery = location.search;
+
+function render(): Promise<void> | void {
+  shownPath = location.pathname;
+  shownQuery = location.search;
+  return route();
+}
+
+/** Show whatever the URL now points to. */
 function navigate() {
-  if (reduceMotion.matches) {
-    route();
+  if (location.pathname === shownPath) {
+    // Same page: a new query re-renders in place, a hash change needs nothing
+    if (location.search !== shownQuery) Promise.resolve(render()).then(() => landAtTarget());
     return;
   }
-  curtainTransition(route, app);
+  if (reduceMotion.matches) {
+    Promise.resolve(render()).then(() => landAtTarget());
+    return;
+  }
+  curtainTransition(render, app);
+}
+
+function scrollToHash(hash: string) {
+  const target = hash.length > 1 ? document.getElementById(decodeURIComponent(hash.slice(1))) : null;
+  if (target) target.scrollIntoView({ behavior: reduceMotion.matches ? 'auto' : 'smooth', block: 'start' });
+  return !!target;
 }
 
 // SPA navigation
 document.addEventListener('click', (e) => {
-  const target = e.target as HTMLElement;
-  const anchor = target.closest('a[data-spa]') as HTMLAnchorElement | null;
-  if (anchor) {
-    const href = anchor.getAttribute('href');
-    if (href && (href.startsWith('/') || href.startsWith('#'))) {
-      if (href.startsWith('#')) return; // Allow anchor scrolling
-      e.preventDefault();
-      if (href === window.location.pathname + window.location.search) return;
-      history.pushState({}, '', href);
-      navigate();
+  if (e.defaultPrevented || e.button !== 0 || e.metaKey || e.ctrlKey || e.shiftKey || e.altKey) return;
+  const anchor = (e.target as HTMLElement).closest('a[data-spa]') as HTMLAnchorElement | null;
+  if (!anchor) return;
+  const href = anchor.getAttribute('href');
+  if (!href || href.startsWith('#')) return; // plain in-page anchors scroll natively
+  const url = new URL(href, location.href);
+  if (url.origin !== location.origin) return;
+  e.preventDefault();
+
+  if (url.pathname === location.pathname && url.search === location.search) {
+    // Already on this page: scroll instead of transitioning
+    if (url.hash) {
+      if (url.hash !== location.hash) history.pushState({}, '', url.hash);
+      if (scrollToHash(url.hash)) return;
     }
+    if (location.hash) history.pushState({}, '', url.pathname + url.search);
+    window.scrollTo({ top: 0, behavior: reduceMotion.matches ? 'auto' : 'smooth' });
+    return;
   }
+  history.pushState({}, '', url.pathname + url.search + url.hash);
+  navigate();
 });
 
 window.addEventListener('popstate', navigate);
 
 route();
+if (location.hash) requestAnimationFrame(() => landAtTarget());
 
 // One intro reveal per browser session
 try {
